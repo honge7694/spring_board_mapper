@@ -2,7 +2,6 @@ package com.mybatis.board.service;
 
 import com.mybatis.board.dto.BoardDto;
 import com.mybatis.board.repository.BoardMapper;
-import com.mybatis.board.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
