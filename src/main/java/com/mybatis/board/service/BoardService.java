@@ -1,11 +1,13 @@
 package com.mybatis.board.service;
 
 import com.mybatis.board.dto.BoardDto;
+import com.mybatis.board.entity.Board;
 import com.mybatis.board.repository.BoardMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -17,6 +19,16 @@ public class BoardService {
     }
 
     public List<BoardDto> findAll() {
-        return boardMapper.findAll();
+        List<Board> boardList = boardMapper.findAll();
+        return boardList.stream().map(BoardDto::new).toList();
+    }
+
+    public void updateHits(Long id) {
+        boardMapper.updateHits(id);
+    }
+
+    public BoardDto findById(Long id) {
+        Board board = boardMapper.findById(id).orElseThrow();
+        return new BoardDto(board);
     }
 }
