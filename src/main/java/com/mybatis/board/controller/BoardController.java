@@ -5,10 +5,7 @@ import com.mybatis.board.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,7 +17,7 @@ public class BoardController {
 
     @GetMapping("/save")
     public String save() {
-        return "save";
+        return "redirect:/list";
     }
 
     @PostMapping("/save")
@@ -42,8 +39,25 @@ public class BoardController {
     public String findById(@PathVariable Long id, Model model) {
         boardService.updateHits(id);
         BoardDto boardDto = boardService.findById(id);
-        model.addAttribute("boardDetail", boardDto);
+        model.addAttribute("board", boardDto);
         System.out.println("boardDto = " + boardDto);
+        return "detail";
+    }
+
+    @GetMapping("/update/{id}")
+    public String update(@PathVariable Long id, Model model) {
+        BoardDto boardDto = boardService.findById(id);
+        model.addAttribute("board", boardDto);
+        System.out.println("get update boardDto = " + boardDto);
+        return "update";
+    }
+
+    @PostMapping("/update/{id}")
+    public String update(BoardDto boardDto, Model model) {
+        boardService.update(boardDto);
+        // redirect를 안쓰는 이유는 수정 후 조회 수가 증가하기 때문
+        BoardDto board = boardService.findById(boardDto.getId());
+        model.addAttribute("boardDetail", board);
         return "detail";
     }
 }

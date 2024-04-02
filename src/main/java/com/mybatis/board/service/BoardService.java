@@ -28,7 +28,12 @@ public class BoardService {
     }
 
     public BoardDto findById(Long id) {
-        Board board = boardMapper.findById(id).orElseThrow();
+        System.out.println("id = " + id);
+        Board board = boardMapper.findById(id).orElseThrow(() -> new IllegalArgumentException("게시글이 존재하지 않습니다."));
         return new BoardDto(board);
+    }
+
+    public void update(BoardDto boardDto) {
+        boardMapper.update(boardDto);
     }
 }

@@ -2,12 +2,14 @@ package com.mybatis.board.dto;
 
 import com.mybatis.board.entity.Board;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 @Getter
 @Setter
 @ToString
+@NoArgsConstructor
 public class BoardDto {
     private Long id;
     private String boardWriter;
@@ -18,6 +20,7 @@ public class BoardDto {
     private String createdAt;
 
     public BoardDto(Board board) {
+        System.out.println("board = " + board);
         this.id = board.getId();
         this.boardWriter = board.getBoardWriter();
         this.boardPass = board.getBoardPass();
