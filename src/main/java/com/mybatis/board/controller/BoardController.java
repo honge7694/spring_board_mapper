@@ -39,7 +39,7 @@ public class BoardController {
     public String findById(@PathVariable Long id, Model model) {
         boardService.updateHits(id);
         BoardDto boardDto = boardService.findById(id);
-        model.addAttribute("board", boardDto);
+        model.addAttribute("boardDetail", boardDto);
         System.out.println("boardDto = " + boardDto);
         return "detail";
     }
@@ -59,5 +59,11 @@ public class BoardController {
         BoardDto board = boardService.findById(boardDto.getId());
         model.addAttribute("boardDetail", board);
         return "detail";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable Long id) {
+        boardService.delete(id);
+        return "redirect:/board/list";
     }
 }

@@ -36,4 +36,8 @@ public class BoardService {
     public void update(BoardDto boardDto) {
         boardMapper.update(boardDto);
     }
+
+    public void delete(Long id) {
+        boardMapper.delete(id);
+    }
 }

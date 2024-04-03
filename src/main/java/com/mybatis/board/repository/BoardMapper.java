@@ -18,5 +18,7 @@ public interface BoardMapper {
     Optional<Board> findById(Long id);
 
     void update(BoardDto boardDto);
+
+    void delete(Long id);
 }
 
