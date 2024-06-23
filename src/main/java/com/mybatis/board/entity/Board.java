@@ -1,5 +1,6 @@
 package com.mybatis.board.entity;
 
+import com.mybatis.board.dto.BoardDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,4 +18,15 @@ public class Board {
     private String boardContents;
     private int boardHits;
     private String createdAt;
+    private int fileAttached;
+
+    public Board(BoardDto boardDto) {
+        this.boardWriter = boardDto.getBoardWriter();
+        this.boardPass = boardDto.getBoardPass();
+        this.boardTitle = boardDto.getBoardTitle();
+        this.boardContents = boardDto.getBoardContents();
+        this.boardHits = boardDto.getBoardHits();
+        this.createdAt = boardDto.getCreatedAt();
+        this.fileAttached = boardDto.getFileAttached();
+    }
 }

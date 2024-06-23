@@ -1,15 +1,18 @@
 package com.mybatis.board.repository;
 
 import com.mybatis.board.dto.BoardDto;
+import com.mybatis.board.dto.BoardFileDto;
 import com.mybatis.board.entity.Board;
+import com.mybatis.board.entity.BoardFile;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Options;
 
 import java.util.List;
 import java.util.Optional;
 
 @Mapper
 public interface BoardMapper {
-    void save(BoardDto boardDto);
+    long save(Board board);
 
     List<Board> findAll();
 
@@ -20,5 +23,11 @@ public interface BoardMapper {
     void update(BoardDto boardDto);
 
     void delete(Long id);
+
+    void saveFile(BoardFileDto boardFileDto);
+
+    void updateFile(BoardFileDto boardFileDto);
+
+    BoardFile findFileByBoardId(Long id);
 }
 

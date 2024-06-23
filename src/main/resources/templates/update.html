@@ -5,12 +5,14 @@
     <title>Title</title>
 </head>
 <body>
-<form th:action="@{|/board/update/${board.id}|}" method="post" name="updateForm">
+<form th:action="@{|/board/update/${board.id}|}" method="post" name="updateForm" enctype="multipart/form-data">
     <input type="text" name="id" th:value="${board.id}">
     writer: <input type="text" name="boardWriter" th:value="${board.boardWriter}" readonly><br>
     title: <input type="text" name="boardTitle" th:value="${board.boardTitle}"><br>
     pass: <input type="text" name="boardPass" id="board-pass"><br>
     contents: <textarea name="boardContents" cols="30" rows="10" th:text="${board.boardContents}"></textarea><br>
+    image : <img th:src="@{|/upload/${boardFile.storedFileName}|}" alt="" width="200" height="200"><br>
+    <input type="file" name="boardFile" multiple><br>
     <input type="button" value="수정" onclick="board_update()">
 </form>
 </body>

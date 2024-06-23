@@ -11,3 +11,5 @@ spring:
 mybatis:
   mapper-locations: classpath:mapper/*.xml
 
+file:
+  upload-dir: D:/24_Project/board/src/upload-files/
