@@ -7,6 +7,8 @@ import lombok.Setter;
 import lombok.ToString;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 @Getter
 @Setter
 @ToString
@@ -20,7 +22,7 @@ public class BoardDto {
     private int boardHits;
     private String createdAt;
     private int fileAttached;
-    private MultipartFile boardFile;
+    private List<MultipartFile> boardFile;
 
     public BoardDto(Board board) {
         this.id = board.getId();
@@ -43,7 +45,7 @@ public class BoardDto {
                 ", boardHits=" + boardHits +
                 ", createdAt='" + createdAt + '\'' +
                 ", fileAttached=" + fileAttached +
-                ", boardFile=" + (boardFile != null ? boardFile.getOriginalFilename() : "null") +
+                ", boardFile=" + (boardFile != null ? boardFile : "null") +
             '}';
     }
 }

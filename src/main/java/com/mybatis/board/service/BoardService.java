@@ -22,7 +22,7 @@ public class BoardService {
     private String uploadDir;
     private final BoardMapper boardMapper;
     public void save(BoardDto boardDto) throws IOException {
-        if (boardDto.getBoardFile().isEmpty()) {
+        if (boardDto.getBoardFile().get(0).isEmpty()) {
             // 파일 업로드 되지 않았을 때
             boardDto.setFileAttached(0);
 
@@ -44,22 +44,24 @@ public class BoardService {
             System.out.println("후 : board.getId() = " + board.getId());
 
             // 파일만 가져오기
-            MultipartFile boardFile = boardDto.getBoardFile();
-            String originFileName = boardFile.getOriginalFilename();
-            System.out.println("originFileName = " + originFileName);
+            for(MultipartFile boardFile : boardDto.getBoardFile()) {
+                // 파일 이름 가져오기
+                String originFileName = boardFile.getOriginalFilename();
+                System.out.println("originFileName = " + originFileName);
 
-            // 저장용 이름 만들기
-            System.out.println(System.currentTimeMillis());
-            String storedFileName = System.currentTimeMillis() + "-" + originFileName;
-            System.out.println("storedFileName = " + storedFileName);
+                // 저장용 이름 만들기
+                System.out.println(System.currentTimeMillis());
+                String storedFileName = System.currentTimeMillis() + "-" + originFileName;
+                System.out.println("storedFileName = " + storedFileName);
 
-            // BoardFileDto
-            BoardFileDto boardFileDto = new BoardFileDto(board.getId(), originFileName, storedFileName);
+                // BoardFileDto
+                BoardFileDto boardFileDto = new BoardFileDto(board.getId(), originFileName, storedFileName);
 
-            // 파일 저장용 폴더에 파일 저장
-            String savePath = uploadDir;
-            boardFile.transferTo(new File(savePath + storedFileName));
-            boardMapper.saveFile(boardFileDto);
+                // 파일 저장용 폴더에 파일 저장
+                String savePath = uploadDir;
+                boardFile.transferTo(new File(savePath + storedFileName));
+                boardMapper.saveFile(boardFileDto);
+            }
         }
 //        boardMapper.save(boardDto);
     }
@@ -90,7 +92,7 @@ public class BoardService {
             boardDto.setFileAttached(1);
             System.out.println("[Service] boardDto = " + boardDto);
 
-
+            /*
             // 파일만 가져오기
             MultipartFile newBoardFile = boardDto.getBoardFile();
             String originFileName = newBoardFile.getOriginalFilename();
@@ -114,7 +116,7 @@ public class BoardService {
                 String savePath = uploadDir;
                 newBoardFile.transferTo(new File(savePath + storedFileName));
                 boardMapper.updateFile(boardFileDto);
-            }
+            }*/
         }
     }
 
@@ -122,7 +124,7 @@ public class BoardService {
         boardMapper.delete(id);
     }
 
-    public BoardFile findFile(long id) {
+    public List<BoardFile> findFile(long id) {
         return boardMapper.findFileByBoardId(id);
     }
 }

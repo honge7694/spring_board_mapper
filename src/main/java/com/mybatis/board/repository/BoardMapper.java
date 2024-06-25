@@ -28,6 +28,6 @@ public interface BoardMapper {
 
     void updateFile(BoardFileDto boardFileDto);
 
-    BoardFile findFileByBoardId(Long id);
+    List<BoardFile> findFileByBoardId(Long id);
 }
 

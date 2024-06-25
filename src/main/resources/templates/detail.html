@@ -39,9 +39,11 @@
     <th>contents</th>
     <td th:text="${boardDetail.boardContents}"></td>
   </tr>
-  <tr th:if="${boardDetail.fileAttached == 1}">
+  <tr th:if="${boardDetail.fileAttached == 1}" th:each="boardFile: ${boardFileDtoList}">
     <th>image</th>
-    <td><img th:src="@{|/upload/${boardFile.storedFileName}|}" alt="" width="200" height="200"></td>
+    <td>
+      <img th:src="@{|/upload/${boardFile.storedFileName}|}" alt="" width="200" height="200">
+    </td>
   </tr>
 </table>
 <button onclick="listReq()">목록</button>

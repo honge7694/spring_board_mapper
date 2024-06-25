@@ -45,10 +45,9 @@ public class BoardController {
         model.addAttribute("boardDetail", boardDto);
         System.out.println("boardDto = " + boardDto);
         if (boardDto.getFileAttached() == 1) {
-            BoardFile boardFile = boardService.findFile(id);
-            System.out.println("[detail] boardFileDto = " + boardFile);
-            System.out.println("boardFileDto.storedFileName = " + boardFile.getStoredFileName());
-            model.addAttribute("boardFile", boardFile);
+            List<BoardFile> boardFileDtoList = boardService.findFile(id);
+            System.out.println("[detail] boardFileDtoList = " + boardFileDtoList);
+            model.addAttribute("boardFileDtoList", boardFileDtoList);
         }
         return "detail";
     }
@@ -59,7 +58,7 @@ public class BoardController {
         model.addAttribute("board", boardDto);
         System.out.println("get update boardDto = " + boardDto);
         if (boardDto.getFileAttached() == 1) {
-            BoardFile boardFile = boardService.findFile(id);
+            List<BoardFile> boardFile = boardService.findFile(id);
             model.addAttribute("boardFile", boardFile);
             System.out.println("[update] boardFileDto = " + boardFile);
         }
@@ -75,7 +74,7 @@ public class BoardController {
         System.out.println("[update.post] board = " + board);
         model.addAttribute("boardDetail", board);
         if (board.getFileAttached() == 1) {
-            BoardFile boardFile = boardService.findFile(boardDto.getId());
+            List<BoardFile> boardFile = boardService.findFile(boardDto.getId());
             System.out.println("[update.post] boardFileDto = " + boardFile);
             model.addAttribute("boardFile", boardFile);
         }
